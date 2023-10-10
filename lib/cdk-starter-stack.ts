@@ -39,5 +39,7 @@ export class CdkStarterStack extends cdk.Stack {
         },
       ],
     });
+
+    new L3Bucket(this, 'MyL3Bucket', 3);
   }
 }
