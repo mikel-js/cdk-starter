@@ -4,13 +4,13 @@ import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
 class L3Bucket extends Construct {
-  constructor(scope: Construct, id: string) {
+  constructor(scope: Construct, id: string, expiration: number) {
     super(scope, id);
 
     new Bucket(this, 'MyL3Bucket', {
       lifecycleRules: [
         {
-          expiration: Duration.days(2),
+          expiration: Duration.days(expiration),
         },
       ],
     });
