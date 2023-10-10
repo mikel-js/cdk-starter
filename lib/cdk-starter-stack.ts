@@ -1,13 +1,38 @@
 import * as cdk from 'aws-cdk-lib';
 import { Duration } from 'aws-cdk-lib';
-import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
+
+class L3Bucket extends Construct {
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
+
+    new Bucket(this, 'MyL3Bucket', {
+      lifecycleRules: [
+        {
+          expiration: Duration.days(2),
+        },
+      ],
+    });
+  }
+}
 
 export class CdkStarterStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    new Bucket(this, 'L2Bucket', {
+    new CfnBucket(this, 'MyL1Bucket', {
+      lifecycleConfiguration: {
+        rules: [
+          {
+            expirationInDays: 1,
+            status: 'Enabled',
+          },
+        ],
+      },
+    });
+
+    new Bucket(this, 'MyL2Bucket', {
       lifecycleRules: [
         {
           expiration: Duration.days(2),
