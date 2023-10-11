@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { Duration } from 'aws-cdk-lib';
+import { Duration, CfnOutput } from 'aws-cdk-lib';
 import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
@@ -40,7 +40,7 @@ export class CdkStarterStack extends cdk.Stack {
       ],
     });
 
-    new cdk.CfnOutput(this, 'MyL2BucketName', {
+    new CfnOutput(this, 'MyL2BucketName', {
       value: myL2Bucket.bucketName,
     });
 
