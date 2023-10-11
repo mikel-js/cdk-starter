@@ -6,6 +6,8 @@ export class PhotoStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    new Bucket(this, 'PhotoBucket');
+    new Bucket(this, 'PhotoBucket', {
+      bucketName: 'photosbucket-17',
+    });
   }
 }
