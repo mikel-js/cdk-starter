@@ -32,10 +32,17 @@ export class CdkStarterStack extends cdk.Stack {
       },
     });
 
+    const duration = new cdk.CfnParameter(this, 'duration', {
+      default: 6,
+      minValue: 1,
+      maxValue: 10,
+      type: 'Number',
+    });
+
     const myL2Bucket = new Bucket(this, 'MyL2Bucket', {
       lifecycleRules: [
         {
-          expiration: Duration.days(2),
+          expiration: Duration.days(duration.valueAsNumber),
         },
       ],
     });
