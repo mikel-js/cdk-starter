@@ -5,19 +5,17 @@ import { Construct } from 'constructs';
 
 export class PhotoStack extends cdk.Stack {
   private stackSuffix: string;
+  public readonly photoBucketArn: string;
+
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     this.initializeSiffux();
 
-    const photosBucket = new Bucket(this, 'PhotoBucket2', {
+    const photoBucket = new Bucket(this, 'PhotoBucket2', {
       bucketName: `photos-bucket-${this.stackSuffix}`,
     });
-
-    new CfnOutput(this, 'photos-bucket', {
-      value: photosBucket.bucketArn,
-      exportName: 'photos-bucket',
-    });
+    this.photoBucketArn = photoBucket.bucketArn;
   }
   private initializeSiffux() {
     const shortStackId = Fn.select(2, Fn.split('/', this.stackId));
